@@ -1,0 +1,12 @@
+*{
+   padding: 2px;
+}
+.upperline{
+   background-color: #9d85a9;
+   margin-top: 20px;
+   text-align: center;
+   font-family: 'Courier New', Courier, monospace;
+   font-weight: bold;
+   color: white;
+   display: block;
+}

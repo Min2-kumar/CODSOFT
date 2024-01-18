@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- bootstrap css -->
+    <link rel="stylesheet" href="{% static 'app/css/bootstrap.css' %}">
+
+    <!-- Mannual CSS -->
+    <link rel="stylesheet" href="{% static 'app/css/style.css' %}">
+    <title>ContactBook</title>
+</head>
+
+
+<body>
+
+    <div >
+        <h1 class="upperline">Project ContactBook</h1>
+        {% block content %}{% endblock content %}
+    </div>
+
+
+
+    <script src="{% static 'app/js/jquery.js' %}"></script>
+    <script src="{% static 'app/js/popper.js' %}"></script>
+    <script src="{% static 'app/js/bootstrap.js' %}"></script>
+</body>
+</html>
