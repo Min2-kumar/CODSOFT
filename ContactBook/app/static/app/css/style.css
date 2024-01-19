@@ -10,3 +10,6 @@
    color: white;
    display: block;
 }
+.success {
+   background-color: yellow;
+}

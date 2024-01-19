@@ -2,20 +2,28 @@
 
 {% block content %}
 <div class="row">
+
     <div class="col-sm-3">
         <h3 class="text-center">Add Contact</h3>
         <form action="" method="post" enctype="multipart/form-data">{% csrf_token %}
-            {{form}}
-            <input type="submit" value="submit">
+            {{form}} <br>
+            <input type="submit" value="Add Record" class="btn btn-primary text-center">
         </form>
+        {% if messages %}
+            {% for message in messages %}
+                <span style="background-color: limegreen;" {% if message.tags %} class="{{ message.tags }}"  {% endif %} >{{message }}</span>
+            {% endfor %}
+        {% endif %}
+
     </div>
 
     <div class="col-sm-8" >
-        <h3 class="text-center">Contact Details</h3><br>
+        <h3 class="text-center">Contact Details</h3>
+
         {% if form %}        
-        <table class="table table-hover">
-            <thead>
-              <tr>
+        <table class="table table-hover"  >
+            <thead >
+              <tr >
                 <th scope="col">Photo</th>
                 <th scope="col">Name</th>
                 <th scope="col">Number</th>
@@ -27,15 +35,15 @@
             <tbody>
                 {% for p in person %}
                 <tr>
-                    <th><img src="{{p.profilepic.url}}" height="100px" width="100px"></th>
+                    <th><img src="{{p.profilepic.url}}" height="70px" width="70px"></th>
                     <th >{{p.name}}</th>
                     <td>{{p.number}}</td>
                     <td>{{p.email}}</td>
                     <td>{{p.address}}</td>
                     <td>{{p.comment}}</td>
                     <td>
-                    <a href="#" class="btn btn-dark btn-sm">Edit</a>
-                    <form action="#"method="post" class="d-inline">{% csrf_token %}
+                    <a href="{% url 'update' p.id %}" class="btn btn-warning btn-sm">Edit</a>
+                    <form action="{% url 'delete' p.id %}"method="post" class="d-inline">{% csrf_token %}
                         <input type="submit" class="btn btn-dark" value="delete">
                     </form>
                     </td>
@@ -49,3 +57,5 @@
     </div>
 </div>
 {% endblock content %}
+
+<!-- /?id={{p.id}} -->
