@@ -1,26 +1,36 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
+{% extends 'app/base.html' %}
+
     {% block content %}
-    
-    {% if searched %}
-    <h1>what are you searching</h1>
-    {{searched}} <br>
+    <a href="{% url 'addshow' %}" class="btn btn-warning btn-sm text-end">Back to Directories</a>
+    {% if result %}
+    <h1 class="text-center">Your Results</h1>
 
-    {% for p in people%}
-    {{p}}
-    {% endfor %}
-
+    <!-- Display card --> 
+    <div class="row">
+        {% for r in result %}
+        <div class="col-sm-3">
+            <div class="card" style="width: 18rem; height: 0rem;">
+                <img class="card-img-top" src="{{r.profilepic.url}}" alt="Card image cap" height="150px">
+                <div class="card-body">
+                  <h5 class="card-title">{{r.name}}</h5>
+                </div>
+                <ul class="list-group list-group-flush">
+                  <li class="list-group-item">Number: {{r.number}}</li>
+                  <li class="list-group-item">Email: {{r.email}}</li>
+                  <li class="list-group-item">Add: {{r.address}}</li>
+                  <li class="list-group-item">Comment: {{r.comment}}</li>
+                </ul>
+                <div class="card-body">
+                  <a href="{% url 'update' r.id %}" class="btn btn-primary d-inline">Edit</a>
+                  <form action="{% url 'delete' r.id %}"method="post" class="card-link d-inline">{% csrf_token %}
+                    <input type="submit" class="btn btn-dark" value="delete">
+                </form>
+                </div>
+            </div>           
+        </div>
+        {% endfor %}
+    </div>
     {% else %}
-    <h1>Your Forgot to search what looking for</h1>
+    <h1 class="text-center">Your Forgot to search what're looking for</h1>
     {% endif %}
-
-
     {% endblock content %}
-</body>
-</html>

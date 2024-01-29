@@ -2,6 +2,7 @@ from django.shortcuts import render, HttpResponseRedirect
 from .models import Directory
 from .forms import DirectoryForm
 from django.contrib import messages
+from django.db.models import Q
 
 def create_retrive(request):  # create and retrive
     if request.method == 'POST':
@@ -36,3 +37,13 @@ def delete_data(request,id):    # delete
         pid = Directory.objects.get(pk=id)
         pid.delete()
         return HttpResponseRedirect('/')
+
+# ----------------------------------------------------------------------------------------
+
+def search_data(request):   # search function
+    if request.method == 'POST':
+        q = request.POST['q']
+        result = Directory.objects.filter(Q(name__icontains=q) | Q(number__icontains=q))
+        return render (request, 'app/searchhistory.html',{'result':result})
+    else:
+        return render (request, 'app/searchhistory.html')
